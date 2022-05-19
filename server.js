@@ -7,6 +7,9 @@ mongoose.connect(process.env.MONGOURI);
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.get('/',(req,res)=>{
+  res.send('welcome to api')
+})
 app.post("/form", async (req, res) => {
   try {
     console.log(req.body);
