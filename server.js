@@ -30,7 +30,11 @@ app.get("/authors", async (req, res) => {
     res.status(500).json({ ...err, message: "server error" });
   }
 });
+
 app.use("/user", UserRoute);
+app.get('/*',(req,res)=>{
+  res.send("server running")
+})
 app.listen(process.env.PORT | 8080, () => {
   console.log("server started");
 });
