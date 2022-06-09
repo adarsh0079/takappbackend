@@ -1,3 +1,4 @@
 front/
-.env
+/front
+/.env
 /node_modules
