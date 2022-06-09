@@ -1,19 +1,28 @@
 const router = require("express").Router();
 const Article = require("../models/Article");
 const Author = require("../models/Author");
-const Technology =require('../models/Technology')
+const Technology = require("../models/Technology");
 router.post("/", async (req, res) => {
   try {
-    console.log("test")
-    let author=await Author.findOneAndUpdate({author:req.body.author},{author:req.body.author},{upsert:true})
-    let tech=await Technology.findOneAndUpdate(
+    console.log("test");
+    let author = await Author.findOneAndUpdate(
+      { author: req.body.author },
+      { author: req.body.author },
+      { upsert: true,
+        new: true,
+        setDefaultsOnInsert: true }
+    );
+    let tech = await Technology.findOneAndUpdate(
       { technology: req.body.technology },
-      { technology: req.body.technology },{
-        upsert:true
+      { technology: req.body.technology },
+      {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true,
       }
     );
     let article = await Article.create(req.body);
-    console.log(author,tech,article)
+    console.log(author, tech, article);
     res.status(200).json({ msg: "success", article });
   } catch (err) {
     res.status(500).send(err);
@@ -21,16 +30,16 @@ router.post("/", async (req, res) => {
 });
 router.post("/get-filtered", async (req, res) => {
   try {
-    let { searchText, techs, authors } = req.body;
+    let { searchText, technologies, authors } = req.body;
     let filterObj = {};
     console.log(req.body, "ets");
     if (searchText) {
       filterObj.$or = [{ content: { $regex: "any" } }, { title: searchText }];
     }
-    if (techs) {
-      filterObj["technology"] = { $in: techs };
+    if (technologies.length>0) {
+      filterObj["technology"] = { $in: technologies };
     }
-    if (authors) {
+    if (authors.length>0) {
       filterObj["author"] = { $in: authors };
     }
     console.log("test", "lol");
