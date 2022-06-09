@@ -6,7 +6,7 @@ require("dotenv").config();
 const Technology=require('./models/Technology')
 const Author=require('./models/Author')
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGOURI);
 const app = express();
 app.use(cors());
 app.use(express.json());
