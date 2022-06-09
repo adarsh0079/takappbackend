@@ -8,9 +8,11 @@ router.post("/", async (req, res) => {
     let author = await Author.findOneAndUpdate(
       { author: req.body.author },
       { author: req.body.author },
-      { upsert: true,
+      {
+        upsert: true,
         new: true,
-        setDefaultsOnInsert: true }
+        setDefaultsOnInsert: true
+      }
     );
     let tech = await Technology.findOneAndUpdate(
       { technology: req.body.technology },
@@ -30,21 +32,24 @@ router.post("/", async (req, res) => {
 });
 router.post("/get-filtered", async (req, res) => {
   try {
-    let { searchText, technologies, authors } = req.body;
+    let { searchText, technologies, authors, sortBy } = req.body;
     let filterObj = {};
-    console.log(req.body, "ets");
+
     if (searchText) {
-      filterObj.$or = [{ content: { $regex: "any" } }, { title: searchText }];
+      filterObj.$or = [{ content: { $regex: searchText, $options: 'i' } }, { title: { $regex: searchText, $options: 'i' } }];
     }
-    if (technologies.length>0) {
+    if (technologies.length > 0) {
       filterObj["technology"] = { $in: technologies };
     }
-    if (authors.length>0) {
+    if (authors.length > 0) {
       filterObj["author"] = { $in: authors };
     }
-    console.log("test", "lol");
+    let callback = {}
+    if (sortBy === 1) {
+      callback.createdAt = 1
+    }
     console.log(filterObj);
-    let response = await Article.find(filterObj);
+    let response = await Article.find(filterObj, null, { sort: callback });
     res.status(200).json({ msg: "success", articles: response });
   } catch (err) {
     console.log(err);
