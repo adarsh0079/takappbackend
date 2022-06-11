@@ -3,7 +3,7 @@ const articleController=require('../controllers/article')
 
 
 router.post("/",articleController.postArticle);
-router.post("/filter", articleController.postArticle);
+router.post("/filter", articleController.filter);
 
 
 module.exports = router;

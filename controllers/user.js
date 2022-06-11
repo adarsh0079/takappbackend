@@ -22,7 +22,7 @@ module.exports = {
       if (!userExists) {
         let hash = bcrypt.hashSync(req.body.password, 10);
         let user = await User.create({ ...req.body, password: hash });
-        return res.status(200).send({ message: "New user created", user });
+        return res.status(200).send({ message: "New user created" });
       }
 
       // if user exists check password before updating
@@ -41,7 +41,7 @@ module.exports = {
           new: true,
         }
       );
-      res.status(200).json({ message: "User updated", user });
+      res.status(200).json({ message: "User updated" });
     } catch (err) {
       res.status(500).send(err);
     }
