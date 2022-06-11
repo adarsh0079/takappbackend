@@ -52,7 +52,7 @@ const UserSchema = new Schema(
     timeOfBirth: {
       type: String,
       required: true
-    },
+    }
   },
   {
     timestamps: true,
