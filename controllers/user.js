@@ -39,10 +39,12 @@ module.exports = {
         { ...userData, password: userExists.password },
         {
           new: true,
+          runValidators: true,
         }
       );
       res.status(200).json({ message: "User updated" });
     } catch (err) {
+        console.log(err)
       res.status(500).send(err);
     }
   },

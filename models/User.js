@@ -3,6 +3,9 @@ var validateEmail = function (email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);
 };
+var validatePhone = (contact) => {
+  return contact.match(/^[0-10]{10}$/);
+};
 const UserSchema = new Schema(
   {
     userName: {
@@ -14,8 +17,8 @@ const UserSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
+      match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       required: "Email address is required",
-      validate: [validateEmail, "Please fill a valid email address"],
     },
     password: {
       type: String,
@@ -26,9 +29,7 @@ const UserSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      minlength: 10,
-      maxlength: 10,
-      match:/^[0-9]{10}$/,
+      match: /^[0-9]{10}$/,
       required: true,
     },
     gender: {
@@ -52,12 +53,12 @@ const UserSchema = new Schema(
     },
     timeOfBirth: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = model('User', UserSchema)
+module.exports = model("User", UserSchema);
