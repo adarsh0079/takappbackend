@@ -45,8 +45,8 @@ router.post("/get-filtered", async (req, res) => {
       filterObj["author"] = { $in: authors };
     }
     let callback = {}
-    if (sortBy === 1) {
-      callback.createdAt = 1
+    if (sortBy === -1) {
+      callback.createdAt = -1 // most recent
     }
     console.log(filterObj);
     let response = await Article.find(filterObj, null, { sort: callback });
