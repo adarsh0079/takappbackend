@@ -32,9 +32,6 @@ app.get("/authors", async (req, res) => {
 });
 
 app.use("/user", UserRoute);
-app.get('/',(req,res)=>{
-  res.send("server running")
-})
 app.listen(process.env.PORT || 8080, () => {
   console.log("server started");
 });
