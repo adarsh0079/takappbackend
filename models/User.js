@@ -10,7 +10,7 @@ const UserSchema = new Schema(
       unique: true,
     },
     email: {
-      type: email,
+      type: String,
       unique: true,
       trim: true,
       lowercase: true,
@@ -26,23 +26,23 @@ const UserSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      unique: true,
       minlength: 10,
+      maxlength: 10,
       required: true,
     },
     gender: {
       type: String,
-      enum: ["Male", "Female"],
+      enum: ["male", "female"],
       required: true,
     },
     language: {
       type: String,
-      enum: ["Hindi", "English"],
+      enum: ["hindi", "english"],
       required: true,
     },
     maritalStatus: {
       type: String,
-      enum: ["Single", "Married"],
+      enum: ["single", "married", "others"],
       required: true,
     },
     dateOfBirth: {
@@ -50,22 +50,8 @@ const UserSchema = new Schema(
       required: true,
     },
     timeOfBirth: {
-        hours:{
-            type:Number,
-            min:0,
-            max:23,
-        },
-        minutes:{
-            type:Number,
-            min:0,
-            max:59
-        },
-        seconds:{
-            type:Number,
-            min:0,
-            max:59
-        },
-        required:true,
+      type: String,
+      required: true
     },
   },
   {
@@ -73,4 +59,4 @@ const UserSchema = new Schema(
   }
 );
 
-module.exports=model('User',UserSchema)
+module.exports = model('User', UserSchema)
