@@ -28,6 +28,7 @@ const UserSchema = new Schema(
       type: String,
       minlength: 10,
       maxlength: 10,
+      match:/^[0-9]{10}$/,
       required: true,
     },
     gender: {
