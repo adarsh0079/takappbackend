@@ -44,7 +44,7 @@ const UserSchema = new Schema(
     },
     maritalStatus: {
       type: String,
-      enum: ["single", "married", "others"],
+      enum: ["unmarried", "married", "others"],
       required: true,
     },
     dateOfBirth: {
